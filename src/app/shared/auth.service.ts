@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as uuid from "uuid";
+import {UUID} from 'angular2-uuid';
 import {Observable} from 'rxjs';
 import {Http} from '@angular/http';
 @Injectable()
@@ -22,7 +22,7 @@ export class AuthService {
   code: string;
 
   nextCsrfToken(): void {
-    this.csrfToken = uuid();
+    this.csrfToken = UUID.UUID();
   }
 
   isLoggedIn: boolean = false;

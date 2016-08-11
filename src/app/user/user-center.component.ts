@@ -24,7 +24,7 @@ export class UserCenterComponent implements OnInit {
   }
 
   checkAccountStatus(){
-    this.http.get(api.checkStatusEndpoint, {withCredentials: true}).subscribe(d => {
+    this.http.get(api.checkStatusEndpoint).subscribe(d => {
       console.log(d);
       if (!!d) {
         return;
@@ -34,6 +34,13 @@ export class UserCenterComponent implements OnInit {
         this.name = d.json().name;
       }
     });
+
+  }
+
+  logout(){
+      this.http.post(api.logoutEndpoint,{}).subscribe(response => {
+        console.log(`status code: ${response.status}`);
+      });
   }
 
 }
