@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import {appRoutingProviders, routing} from './app.routing';
-import {HttpModule, JsonpModule} from '@angular/http/esm';
-import {Http, HTTP_PROVIDERS} from '@angular/http';
+import {HttpModule, JsonpModule, RequestOptions} from '@angular/http';
 import {AuthService} from './shared/auth.service';
 import {UserModule} from './user/user.module';
+import {BaseRequestOptionWithCredentials} from "./shared/base-request-options-withcredential";
+import {AuthGuardService} from "./shared/auth-guard.service";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {UserModule} from './user/user.module';
     routing
   ],
   providers: [
-    appRoutingProviders, AuthService, Http, HTTP_PROVIDERS
+    appRoutingProviders, AuthService, AuthGuardService,
+    {provide: RequestOptions, useClass: BaseRequestOptionWithCredentials}
   ],
   entryComponents: [AppComponent],
   bootstrap: [AppComponent]
