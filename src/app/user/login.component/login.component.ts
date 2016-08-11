@@ -3,7 +3,7 @@
  */
 
 import {Component} from '@angular/core';
-import {AuthService} from '../shared/auth-service.service';
+import {AuthService} from '../../shared/auth.service';
 @Component({
   selector: 'login',
   templateUrl: 'login.component.html',

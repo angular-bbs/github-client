@@ -1,15 +1,15 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
 import { Subscription } from "rxjs/Rx";
 import { Http } from "@angular/http";
-import {AuthService} from '../shared/auth-service.service';
+import {AuthService} from '../../shared/auth.service';
 
 @Component({
   selector: 'user-home',
-  templateUrl: 'user.component.html'
+  templateUrl: 'login-github.component.html'
 })
-export class UserComponent implements OnInit, OnDestroy {
-  constructor(private router: Router, private auth: AuthService, private http: Http) {
+export class LoginGithubComponent implements OnInit, OnDestroy {
+  constructor(private route: ActivatedRoute, private auth: AuthService, private http: Http, private router: Router) {
   }
 
   name: string;
@@ -17,7 +17,7 @@ export class UserComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   ngOnInit() {
-    this.subscription = this.router.routerState.queryParams.subscribe((params: {code: string, state: string})=> {
+    this.subscription = this.route.queryParams.subscribe((params: {code: string, state: string})=> {
       const state = params.state;
       const code = params.code;
       if (!state && !code) {
@@ -26,12 +26,13 @@ export class UserComponent implements OnInit, OnDestroy {
       if (decodeURIComponent(state) !== this.auth.csrfToken) {
         alert('State code not matching!');
       } else {
-        this.http.post('https://localhost:44396/api/account', {
+        this.http.post('https://localhost:44396/api/account/login-github', {
           state: state,
           code: code,
           redirect_url: this.router.serializeUrl(this.router.createUrlTree(['/bbs/user/home']))
         }).subscribe((data)=> {
           this.name = data.json().name;
+          console.log(data);
         }, (err)=> {
           console.error(err);
         });
