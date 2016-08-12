@@ -36,10 +36,11 @@ export class AuthService {
 
   sub: Subscription;
 
-  login(username: string, password: string) {
+  login() {
     // enquire if logged, if not redirect to login router.
     //this.http.post()
-    return Observable.of(true).delay(1000).do(val => this.isLoggedIn = true);
+    // return Observable.of(true).delay(1000).do(val => this.isLoggedIn = true);
+    console.log('Todo: Login locally actions');
   }
 
   logout() {
@@ -88,11 +89,15 @@ export class AuthService {
   }
 
   createPassword() {
-    console.log('Create Password Requested');
+    console.log('Todo: Create Password Action.');
   }
 
   changePassword() {
-    console.log('Change Password Requested');
+    console.log('Todo: Change Password Action.');
+  }
+
+  forgotPassword(){
+    this.router.navigate(['/user-center/forgot-password']);
   }
 
 }

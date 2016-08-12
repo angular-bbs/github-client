@@ -7,8 +7,8 @@
   <sm-segment *ngIf="authService.isLoggedIn">
     <h2>Manage Account</h2>
     <div [ngSwitch]="authService.hasPassword">
-      <sm-button *ngSwitchCase="false" (click)="authService.createPassword()">Create Password</sm-button>
-      <sm-button *ngSwitchCase="true" (click)="authService.changePassword()">Change Password</sm-button>
+      <sm-button *ngSwitchCase="false" (click)="createPassword()">Create Password</sm-button>
+      <sm-button *ngSwitchCase="true" (click)="changePassword()">Change Password</sm-button>
     </div>
   </sm-segment>
   <sm-segment *ngIf="!authService.isLoggedIn">
@@ -27,6 +27,7 @@
           </div>
 
           <sm-button (click)="login()">Login</sm-button>
+          <sm-button (click)="forgotPassword()">Forgot Password</sm-button>
         </form>
       </sm-tab>
       <sm-tab title="Login with GitHub">

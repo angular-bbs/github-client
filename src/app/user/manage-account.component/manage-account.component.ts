@@ -26,10 +26,11 @@ export class ManageAccountComponent{
   });
 
   login(){
-    this.authService.login(this.username, this.password).subscribe(()=>{
-      let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/';
-      this.router.navigate([redirect]);
-    });
+    // this.authService.login(this.username, this.password).subscribe(()=>{
+    //   let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/';
+    //   this.router.navigate([redirect]);
+    // });
+    this.authService.login();
 
   }
 
@@ -39,5 +40,17 @@ export class ManageAccountComponent{
 
   logout(){
     this.authService.logout();
+  }
+
+  createPassword() {
+    this.router.navigate(['/user-center/create-password']);
+  }
+
+  changePassword() {
+    this.router.navigate(['/user-center/change-password']);
+  }
+
+  forgotPassword(){
+    this.router.navigate(['/user-center/forgot-password']);
   }
 }

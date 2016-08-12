@@ -11,6 +11,10 @@ import {UserCenterComponent} from './user-center.component';
 import {HttpModule} from '@angular/http/esm';
 import { SEMANTIC_COMPONENTS, SEMANTIC_DIRECTIVES } from "ng-semantic";
 import {ManageAccountComponent} from "./manage-account.component/manage-account.component";
+import {CreatePasswordComponent} from "./password/create-password.component";
+import {ForgotPasswordComponent} from "./password/forgot-password.component";
+import {ResetPasswordComponent} from "./password/reset-password.component";
+import {ChangePasswordComponent} from "./password/change-password.component";
 
 @NgModule({
   imports:[
@@ -23,6 +27,10 @@ import {ManageAccountComponent} from "./manage-account.component/manage-account.
     LoginGithubComponent,
     UserCenterComponent,
     ManageAccountComponent,
+    CreatePasswordComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
+    ChangePasswordComponent,
     SEMANTIC_COMPONENTS, SEMANTIC_DIRECTIVES
   ],
   providers:[
