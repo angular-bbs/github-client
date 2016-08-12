@@ -1,11 +1,9 @@
 import {Routes, RouterModule} from '@angular/router';
 import {LoginGithubComponent} from './login-github.component/login-github.component';
-import {TokenComponent} from './token.component/token.component';
-import {LoginComponent} from './login.component/login.component';
-import {LoginLocalComponent} from './login-local.component/login-local.component';
 import {UserCenterComponent} from './user-center.component';
 import {AuthGuardService} from '../shared/auth-guard.service';
 import {AuthService} from '../shared/auth.service';
+import {ManageAccountComponent} from "./manage-account.component/manage-account.component";
 /**
  * Created by yezm on 11/08/2016.
  */
@@ -20,10 +18,9 @@ export const userRoutes: Routes = [
     path: 'user-center',
     component: UserCenterComponent,
     children: [
-      {path: '', component: LoginComponent},
+      {path: '', component: ManageAccountComponent},
       {path: 'login-github', component:LoginGithubComponent},
-      {path: 'token', component: TokenComponent, canActivate: [AuthGuardService]},
-      {path: 'login-local', component: LoginLocalComponent}
+      {path: 'manage-account', component: ManageAccountComponent}
     ]
   }
 ];

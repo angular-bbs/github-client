@@ -1,0 +1,39 @@
+<sm-segement>
+  <sm-message icon="info">
+    <message-content>
+      <p>{{message}}</p>
+    </message-content>
+  </sm-message>
+  <sm-segment *ngIf="authService.isLoggedIn">
+    <h2>Manage Account</h2>
+    <div [ngSwitch]="authService.hasPassword">
+      <sm-button *ngSwitchCase="false" (click)="authService.createPassword()">Create Password</sm-button>
+      <sm-button *ngSwitchCase="true" (click)="authService.changePassword()">Change Password</sm-button>
+    </div>
+  </sm-segment>
+  <sm-segment *ngIf="!authService.isLoggedIn">
+
+
+    <sm-tabs>
+      <sm-tab title="Login with local account" [active]="true">
+        <form class="ui form" [formGroup]="loginForm">
+          <div class="field">
+            <sm-input icon="user" class="left" label="Username" placeholder="Enter username..."
+                      [control]="loginForm.controls.username" name="username"></sm-input>
+          </div>
+          <div class="field">
+            <sm-input icon="protect" class="left" label="Password" placeholder="Enter password" [control]="loginForm.controls.password"
+                      name="password"></sm-input>
+          </div>
+
+          <sm-button (click)="login()">Login</sm-button>
+        </form>
+      </sm-tab>
+      <sm-tab title="Login with GitHub">
+        <a class="ui button" href="https://github.com/login/oauth/authorize?client_id=668f3a743f4248e316d2&state={{authService.csrfToken}}&redirect_uri=http://localhost:4200/user-center/login-github&scope=public_repo%20user:email">GitHub</a>
+      </sm-tab>
+    </sm-tabs>
+
+
+  </sm-segment>
+</sm-segement>

@@ -3,6 +3,7 @@ import {Router, ActivatedRoute} from "@angular/router";
 import { Subscription } from "rxjs/Rx";
 import { Http } from "@angular/http";
 import {AuthService} from '../../shared/auth.service';
+import {api} from "../shared/api.const";
 
 @Component({
   selector: 'user-home',
@@ -26,16 +27,7 @@ export class LoginGithubComponent implements OnInit, OnDestroy {
       if (decodeURIComponent(state) !== this.auth.csrfToken) {
         alert('State code not matching!');
       } else {
-        this.http.post('https://localhost:44396/api/account/login-github', {
-          state: state,
-          code: code,
-          redirect_url: this.router.serializeUrl(this.router.createUrlTree(['/bbs/user/home']))
-        }).subscribe((data)=> {
-          this.name = data.json().name;
-          console.log(data);
-        }, (err)=> {
-          console.error(err);
-        });
+        this.auth.loginWithGithub(state, code);
       }
     });
   }

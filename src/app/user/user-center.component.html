@@ -1,12 +1,11 @@
 <div class="ui container">
   <sm-menu class="inverted teal">
     <a sm-item routerLink="/user-center" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">User Center</a>
-    <a sm-item routerLink="/user-center/login-local" routerLinkActive="active">Login Local</a>
-    <a sm-item routerLink="/user-center/token" routerLinkActive="active">Token</a>
-    <a sm-item href="https://github.com/login/oauth/authorize?client_id=668f3a743f4248e316d2&state={{auth.csrfToken}}&redirect_uri=http://localhost:4200/user-center/login-github&scope=public_repo%20user:email">Login with Github</a>
     <sm-menu class="menu right">
-      <a sm-item *ngIf="auth.username">{{auth.username}}</a>
-      <a sm-item (click)="logout()">Logout</a>
+      <a sm-item *ngIf="auth.username" (click)="auth.manageAccount()">{{auth.username}}</a>
+      <a sm-item (click)="auth.logout()" *ngIf="auth.isLoggedIn">Logout</a>
+      <a sm-item *ngIf="!auth.isLoggedIn" routerLink="/user-center/manage-account" routerLinkActive="active">Login</a>
+      <a sm-item *ngIf="!auth.isLoggedIn" href="https://github.com/login/oauth/authorize?client_id=668f3a743f4248e316d2&state={{auth.csrfToken}}&redirect_uri=http://localhost:4200/user-center/login-github&scope=public_repo%20user:email">Login with Github</a>
     </sm-menu>
   </sm-menu>
   <h2>User Center</h2>

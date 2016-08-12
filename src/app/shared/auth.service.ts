@@ -3,17 +3,18 @@ import {Observable, Subscription} from 'rxjs';
 import {Http} from '@angular/http';
 import {Uuid} from './uuid.service';
 import {api} from '../user/shared/api.const';
+import {Router} from "@angular/router";
 @Injectable()
 export class AuthService {
 
-  constructor(private http: Http, private uuid: Uuid) {
+  constructor(private http: Http, private uuid: Uuid, private router: Router) {
     if (!this.csrfToken) {
       this.nextCsrfToken();
     }
   }
 
   get csrfToken(): string {
-    var uuid= sessionStorage.getItem('csrfToken');
+    var uuid = sessionStorage.getItem('csrfToken');
     return uuid;
   }
 
@@ -31,6 +32,7 @@ export class AuthService {
 
   redirectUrl: string;
   username: string;
+  hasPassword: boolean = false;
 
   sub: Subscription;
 
@@ -41,22 +43,56 @@ export class AuthService {
   }
 
   logout() {
-    this.isLoggedIn = false;
+    var s = this.http.post(api.logoutEndpoint, {}).subscribe(d=> {
+      s.unsubscribe();
+      this.isLoggedIn = false;
+      this.username = null;
+    });
   }
 
-  checkStatus(){
+  checkStatus() {
     this.sub = this.http.get(api.checkStatusEndpoint).subscribe(d => {
       console.log(d);
       this.sub.unsubscribe();
-      if (!!d) {
+      if (d == null) {
         this.username = null;
         return null;
       }
       if (d.ok) {
-        this.username = d.json().name;
+        this.isLoggedIn = true;
+        var result = d.json();
+        this.username = result.name;
+        this.hasPassword = result.hasPassword;
       }
     });
   }
 
+  loginWithGithub(state: string, code: string) {
+    var s = this.http.post(api.loginGithubEndpoint, {
+      state: state,
+      code: code,
+      redirect_url: this.router.serializeUrl(this.router.createUrlTree(['/user-center']))
+    }).subscribe((data)=> {
+      var result = data.json();
+      this.username = result.name;
+      this.hasPassword = result.hasPassword;
+      this.isLoggedIn = true;
+      this.router.navigate(['/user-center']);
+    }, (err)=> {
+      console.error(err);
+    });
+  }
+
+  manageAccount() {
+    this.router.navigate(['/user-center/manage-account']);
+  }
+
+  createPassword() {
+    console.log('Create Password Requested');
+  }
+
+  changePassword() {
+    console.log('Change Password Requested');
+  }
 
 }

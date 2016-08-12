@@ -13,4 +13,5 @@ export class UserCenterComponent{
   constructor(public auth: AuthService){
       auth.checkStatus();
   }
+
 }
