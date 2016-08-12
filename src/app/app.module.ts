@@ -9,6 +9,8 @@ import {AuthService} from './shared/auth.service';
 import {UserModule} from './user/user.module';
 import {BaseRequestOptionWithCredentials} from "./shared/base-request-options-withcredential";
 import {AuthGuardService} from "./shared/auth-guard.service";
+import {Uuid} from './shared/uuid.service';
+import { SEMANTIC_COMPONENTS, SEMANTIC_DIRECTIVES } from "ng-semantic";
 
 @NgModule({
   declarations: [
@@ -24,7 +26,7 @@ import {AuthGuardService} from "./shared/auth-guard.service";
     routing
   ],
   providers: [
-    appRoutingProviders, AuthService, AuthGuardService,
+    appRoutingProviders, AuthService, AuthGuardService, Uuid,
     {provide: RequestOptions, useClass: BaseRequestOptionWithCredentials}
   ],
   entryComponents: [AppComponent],

@@ -1,7 +1,6 @@
 /**
  * Created by yezm on 11/08/2016.
  */
-
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common/esm';
 import {FormsModule} from '@angular/forms';
@@ -13,20 +12,23 @@ import {userRouting} from './user.routing';
 import {UserCenterComponent} from './user-center.component';
 import {LoginLocalComponent} from './login-local.component/login-local.component';
 import {HttpModule} from '@angular/http/esm';
+import { SEMANTIC_COMPONENTS, SEMANTIC_DIRECTIVES } from "ng-semantic";
 
 @NgModule({
   imports:[
     CommonModule,
     FormsModule,
     userRouting,
-    HttpModule
+    HttpModule,
+    // SEMANTIC_COMPONENTS, SEMANTIC_DIRECTIVES
   ],
   declarations:[
     LoginComponent,
     LoginGithubComponent,
     TokenComponent,
     UserCenterComponent,
-    LoginLocalComponent
+    LoginLocalComponent,
+    SEMANTIC_COMPONENTS, SEMANTIC_DIRECTIVES
   ],
   providers:[
     AuthService

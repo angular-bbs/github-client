@@ -2,45 +2,15 @@
  * Created by yezm on 11/08/2016.
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthService} from '../shared/auth.service';
-import {Http} from '@angular/http';
-import {api} from './shared/api.const';
+
 @Component({
   selector: 'user-center',
-  templateUrl: 'user-center.component.html',
-  providers: [AuthService]
+  templateUrl: 'user-center.component.html'
 })
-export class UserCenterComponent implements OnInit {
-  name: string;
-  isAuthorized: boolean;
-
-  constructor(private http: Http) {
-
+export class UserCenterComponent{
+  constructor(public auth: AuthService){
+      auth.checkStatus();
   }
-
-  ngOnInit(): void {
-    this.checkAccountStatus();
-  }
-
-  checkAccountStatus(){
-    this.http.get(api.checkStatusEndpoint).subscribe(d => {
-      console.log(d);
-      if (!!d) {
-        return;
-      }
-      this.isAuthorized = d.ok;
-      if (d.ok) {
-        this.name = d.json().name;
-      }
-    });
-
-  }
-
-  logout(){
-      this.http.post(api.logoutEndpoint,{}).subscribe(response => {
-        console.log(`status code: ${response.status}`);
-      });
-  }
-
 }

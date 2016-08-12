@@ -5,6 +5,7 @@
 import {Component} from '@angular/core';
 import {AuthService} from '../../shared/auth.service';
 import {Router} from '@angular/router';
+import {FormGroup, FormControl} from '@angular/forms';
 @Component({
   selector:'login-local',
   templateUrl: 'login-local.component.html'
@@ -17,6 +18,11 @@ export class LoginLocalComponent{
   constructor(private authService: AuthService, private router: Router){
 
   }
+
+  loginForm = new FormGroup({
+    username: new FormControl(),
+    password: new FormControl()
+  });
 
   login(){
     this.authService.login(this.username, this.password).subscribe(()=>{
