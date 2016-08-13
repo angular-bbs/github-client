@@ -2,17 +2,20 @@
  * Created by yezm on 12/08/2016.
  */
 
-import {Component} from "@angular/core";
+import {Component, OnDestroy} from "@angular/core";
 import {AuthService} from "../../shared/auth.service";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {Uuid} from "../../shared/uuid-generator.service";
+import {Subscription} from "rxjs";
 @Component({
   selector: 'manage-account',
   templateUrl: 'manage-account.component.html'
 })
 
-export class ManageAccountComponent {
+export class ManageAccountComponent implements OnDestroy {
+
+  private sub: Subscription;
 
   constructor(public authService: AuthService, private router: Router, private uuid: Uuid) {
 
@@ -24,16 +27,17 @@ export class ManageAccountComponent {
   });
 
   errorMessage: string;
+
   get message() {
     return 'You are logged ' + (this.authService.user.isLoggedIn ? 'in as: ' + this.authService.user.name : 'out');
   }
 
-  login(username: string, password: string){
+  login(username: string, password: string) {
     if (username == null || password == null) {
       this.errorMessage = 'Username or password are not valid.';
       return;
     }
-    this.authService.login(username, password)
+    this.sub = this.authService.login(username, password)
       .subscribe(data => {
         var result = data.json();
         this.authService.user.hasPassword = true;
@@ -55,5 +59,9 @@ export class ManageAccountComponent {
 
   forgotPassword() {
     this.router.navigate(['/user-center/forgot-password']);
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 }

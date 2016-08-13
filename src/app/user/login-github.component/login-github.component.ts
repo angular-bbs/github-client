@@ -16,10 +16,10 @@ export class LoginGithubComponent implements OnInit, OnDestroy {
 
   name: string;
 
-  subscription: Subscription;
+  private sub: Subscription;
 
   ngOnInit() {
-    this.subscription = this.route.queryParams.subscribe((params: {code: string, state: string})=> {
+    this.sub = this.route.queryParams.subscribe((params: {code: string, state: string})=> {
       const state = params.state;
       const code = params.code;
       if (!state && !code) {
@@ -34,6 +34,6 @@ export class LoginGithubComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.sub.unsubscribe();
   }
 }

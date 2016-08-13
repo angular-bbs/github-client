@@ -2,17 +2,20 @@
  * Created by yezm on 12/08/2016.
  */
 
-import {Component} from "@angular/core";
+import {Component, OnDestroy} from "@angular/core";
 import {AuthService} from "../../shared/auth.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Subscription} from "rxjs";
 @Component({
   selector: 'create-password',
   templateUrl:'create-password.component.html'
 })
 
-export class CreatePasswordComponent{
+export class CreatePasswordComponent implements OnDestroy{
+
   isSuccess: boolean = false;
   private errorMessage;
+  private sub: Subscription;
   constructor(private auth: AuthService){
 
   }
@@ -23,7 +26,7 @@ export class CreatePasswordComponent{
   });
 
   createPassword(password: string, confirmPassword: string){
-    this.auth.createPassword(password, confirmPassword)
+    this.sub = this.auth.createPassword(password, confirmPassword)
       .subscribe(d => {
         console.log('Create Password response:');
         console.log(d);
@@ -32,5 +35,9 @@ export class CreatePasswordComponent{
       }, (err) => {
         this.errorMessage = err;
       });
+  }
+
+  ngOnDestroy(): any {
+    this.sub.unsubscribe();
   }
 }
