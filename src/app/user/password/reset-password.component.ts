@@ -49,8 +49,9 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     if (!this.resetPasswordForm.valid) {
       return;
     }
-    if (password !== confirmPassword) {
+    if (password != confirmPassword) {
       this.errorMessage = 'Confirm password does not match with password';
+      return;
     }
 
     this.sub1 = this.auth.resetPassword(this.email, this.code, password, confirmPassword).subscribe(data => {
