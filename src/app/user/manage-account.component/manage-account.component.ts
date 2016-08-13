@@ -2,29 +2,33 @@
  * Created by yezm on 12/08/2016.
  */
 
-import {Component, OnDestroy} from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {AuthService} from "../../shared/auth.service";
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators, FormBuilder} from "@angular/forms";
 import {Router} from "@angular/router";
-import {Uuid} from "../../shared/uuid-generator.service";
 import {Subscription} from "rxjs";
+import {Uuid} from "../../shared/uuid-generator.service";
 @Component({
   selector: 'manage-account',
   templateUrl: 'manage-account.component.html'
 })
 
-export class ManageAccountComponent implements OnDestroy {
+export class ManageAccountComponent implements OnDestroy, OnInit{
+
+  ngOnInit(): any {
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
 
   private sub: Subscription;
 
-  constructor(public authService: AuthService, private router: Router, private uuid: Uuid) {
+  constructor(public authService: AuthService, private router: Router, private formBuilder: FormBuilder, public uuid: Uuid) {
 
   }
 
-  loginForm = new FormGroup({
-    username: new FormControl(),
-    password: new FormControl()
-  });
+  loginForm: FormGroup;
 
   errorMessage: string;
 

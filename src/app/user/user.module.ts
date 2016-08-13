@@ -3,9 +3,8 @@
  */
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common/esm';
-import {FormsModule} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 import {LoginGithubComponent} from './login-github.component/login-github.component';
-import {AuthService} from '../shared/auth.service';
 import {userRouting} from './user.routing';
 import {UserCenterComponent} from './user-center.component';
 import {HttpModule} from '@angular/http/esm';
@@ -19,7 +18,7 @@ import {ChangePasswordComponent} from "./password/change-password.component";
 @NgModule({
   imports:[
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
     userRouting,
     HttpModule
   ],

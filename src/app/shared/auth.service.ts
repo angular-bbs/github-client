@@ -15,7 +15,6 @@ export class AuthService {
     email: ''
   };
   redirectUrl: string;
-  errorMessage: string;
 
   constructor(private http: Http, private router: Router) {
 
@@ -61,13 +60,19 @@ export class AuthService {
     }).catch(this.handleError);
   }
 
-  forgotPassword() {
-    this.router.navigate(['/user-center/forgot-password']);
+  forgotPassword(email: string) {
+    return this.http.post(api.forgetPasswordEndpoint, {
+      email: email})
+      .catch(this.handleError);
   }
 
-  private setErrorMessage(err) {
-    this.errorMessage = err;
-    console.log(this.errorMessage);
+  resetPassword(email: string, code: string, password: string, confirmPassword: string){
+    return this.http.post(api.resetPasswordEndpoint, {
+      email: email,
+      code: code,
+      password: password,
+      confirmPassword: confirmPassword
+    }).catch(this.handleError);
   }
 
   private handleError(error: any) {
