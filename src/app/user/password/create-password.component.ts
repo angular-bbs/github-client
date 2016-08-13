@@ -11,6 +11,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 
 export class CreatePasswordComponent{
+  isSuccess: boolean = false;
+  private errorMessage;
   constructor(private auth: AuthService){
 
   }
@@ -20,5 +22,15 @@ export class CreatePasswordComponent{
     confirmPassword: new FormControl('', Validators.required)
   });
 
-
+  createPassword(password: string, confirmPassword: string){
+    this.auth.createPassword(password, confirmPassword)
+      .subscribe(d => {
+        console.log('Create Password response:');
+        console.log(d);
+        this.auth.user.hasPassword = true;
+        this.isSuccess = true;
+      }, (err) => {
+        this.errorMessage = err;
+      });
+  }
 }

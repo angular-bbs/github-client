@@ -5,88 +5,79 @@ import {Uuid} from './uuid-generator.service';
 import {api} from '../user/shared/api.const';
 import {Router} from "@angular/router";
 import {User} from "./user.interface";
+import 'rxjs/add/operator/catch';
 @Injectable()
 export class AuthService {
   user: User = {
     hasPassword: false,
-    username: '',
-    isLoggedIn: false
+    name: '',
+    isLoggedIn: false,
+    email: ''
   };
+  redirectUrl: string;
+  errorMessage: string;
+
   constructor(private http: Http, private router: Router) {
 
   }
-  code: string;
-  redirectUrl: string;
 
-  login() {
-    // enquire if logged, if not redirect to login router.
-    //this.http.post()
-    // return Observable.of(true).delay(1000).do(val => this.isLoggedIn = true);
-    console.log('Todo: Login locally actions');
+  login(username: string, password: string) {
+    return this.http.post(api.loginWithLocalAccountEndpoint, {
+      username: username,
+      password: password
+    }).catch(this.handleError);
   }
 
   logout() {
-    this.http.post(api.logoutEndpoint, {}).subscribe(d => {
-      this.user.isLoggedIn = false;
-      this.user.username = '';
-      this.user.hasPassword = false;
-    }, (err) => {
-      console.log(err);
-    });
+    return this.http.post(api.logoutEndpoint, {})
+      .catch(this.handleError);
   }
 
   checkStatus() {
-    this.http.get(api.checkStatusEndpoint).subscribe(d => {
-        this.user.isLoggedIn = true;
-        var result = d.json();
-        this.user.username = result.name;
-        this.user.hasPassword = result.hasPassword;
-      }, (err) => {
-        console.log(err);
-    })
+    return this.http.get(api.checkStatusEndpoint)
+      .catch(this.handleError);
   }
 
   loginWithGithub(state: string, code: string) {
-    this.http.post(api.loginGithubEndpoint, {
+    return this.http.post(api.loginGithubEndpoint, {
       state: state,
       code: code,
       redirect_url: this.router.serializeUrl(this.router.createUrlTree(['/user-center']))
-    }).subscribe((data)=> {
-        var result = data.json();
-        this.user.username = result.name;
-        this.user.hasPassword = result.hasPassword;
-        this.user.isLoggedIn = true;
-        this.router.navigate(['/user-center']);
-    }, (err)=> {
-      console.error(err);
-    });
+    }).catch(this.handleError);
   }
 
   createPassword(password: string, confirmPassword: string) {
-    this.http.post(api.createPasswordEndpoint, {
+    return this.http.post(api.createPasswordEndpoint, {
       password: password,
       confirmPassword: confirmPassword
-    }).subscribe(d => {
-      console.log('Create Password response:');
-      console.log(d);
-      this.user.hasPassword = true;
-      this.router.navigate(['/user-center/manage-account']);
-    }, (err) => {
-      console.error(err);
-    });
+    }).catch(this.handleError);
   }
 
-  changePassword() {
-    console.log('Todo: Change Password Action.');
+  changePassword(currentPassword: string, newPassword: string, confirmPassword: string) {
+    return this.http.post(api.changePasswordEndpoint, {
+      currentPassword: currentPassword,
+      newPassword: newPassword,
+      confirmPassword: confirmPassword
+    }).catch(this.handleError);
   }
 
   forgotPassword() {
     this.router.navigate(['/user-center/forgot-password']);
   }
 
-  private updateUserInfo(username: string = '', hasPassword: boolean = false, isLoggedIn: boolean = false){
-    this.user.hasPassword = hasPassword;
-    this.user.isLoggedIn = isLoggedIn;
-    this.user.username = username;
+  private setErrorMessage(err) {
+    this.errorMessage = err;
+    console.log(this.errorMessage);
+  }
+
+  private handleError(error: any) {
+    // In a real world app, we might use a remote logging infrastructure
+    // We'd also dig deeper into the error to get a better message
+    let errMsg = (error.message) ? error.message :
+      error._body ? error._body :
+        error.status ? `${error.status} - ${error.statusText}` :
+          'Server error';
+    console.error(errMsg); // log to console instead
+    return Observable.throw(errMsg);
   }
 }

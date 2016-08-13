@@ -10,5 +10,9 @@ export const api = {
   tokenEndpoint: accountEndpoint + '/token',
   checkStatusEndpoint: accountEndpoint + '/check-status',
   logoutEndpoint: accountEndpoint + '/logout',
-  createPasswordEndpoint: accountEndpoint + '/create-password'
+  createPasswordEndpoint: accountEndpoint + '/create-password',
+  loginWithLocalAccountEndpoint: accountEndpoint + '/login-local',
+  forgetPasswordEndpoint: accountEndpoint + '/forgot-password',
+  resetPasswordEndpoint: accountEndpoint + '/reset-password',
+  changePasswordEndpoint: accountEndpoint + '/change-password'
 };

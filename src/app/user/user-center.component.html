@@ -2,14 +2,14 @@
   <sm-menu class="inverted teal">
     <a sm-item routerLink="/user-center" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">User Center</a>
     <sm-menu class="menu right">
-      <a sm-item *ngIf="auth.user.username" routerLinkActive="active" routerLink="/user-center/manage-account">{{auth.user.username}}</a>
-      <a sm-item (click)="auth.logout()" *ngIf="auth.user.isLoggedIn">Logout</a>
-      <a sm-item *ngIf="!auth.user.isLoggedIn" routerLink="/user-center/manage-account" routerLinkActive="active">Login</a>
-      <a sm-item *ngIf="!auth.user.isLoggedIn" href="https://github.com/login/oauth/authorize?client_id=668f3a743f4248e316d2&state={{uuid.csrfToken}}&redirect_uri=http://localhost:4200/user-center/login-github&scope=public_repo%20user:email">Login with Github</a>
+      <a sm-item *ngIf="authService.user.name" routerLinkActive="active" routerLink="/user-center/manage-account">{{authService.user.name}}</a>
+      <a sm-item (click)="logout()" *ngIf="authService.user.isLoggedIn">Logout</a>
+      <a sm-item *ngIf="!authService.user.isLoggedIn" routerLink="/user-center/manage-account" routerLinkActive="active">Login</a>
+      <a sm-item *ngIf="!authService.user.isLoggedIn" href="https://github.com/login/oauth/authorize?client_id=668f3a743f4248e316d2&state={{uuid.csrfToken}}&redirect_uri=http://localhost:4200/user-center/login-github&scope=public_repo%20user:email">Login with Github</a>
     </sm-menu>
   </sm-menu>
   <h2>User Center</h2>
-  <sm-segment class="colored blue">
+  <sm-segment class="colored teal">
     <router-outlet></router-outlet>
   </sm-segment>
 </div>

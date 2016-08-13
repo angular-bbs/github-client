@@ -12,12 +12,9 @@ import {Uuid} from "../../shared/uuid-generator.service";
   templateUrl: 'manage-account.component.html'
 })
 
-export class ManageAccountComponent{
+export class ManageAccountComponent {
 
-  username: string;
-  password: string;
-
-  constructor(public authService: AuthService, private router: Router, private uuid: Uuid){
+  constructor(public authService: AuthService, private router: Router, private uuid: Uuid) {
 
   }
 
@@ -26,21 +23,26 @@ export class ManageAccountComponent{
     password: new FormControl()
   });
 
-  login(){
-    // this.authService.login(this.username, this.password).subscribe(()=>{
-    //   let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/';
-    //   this.router.navigate([redirect]);
-    // });
-    this.authService.login();
-
-  }
-
+  errorMessage: string;
   get message() {
-    return 'You are logged ' + (this.authService.user.isLoggedIn ? 'in as: ' + this.authService.user.username : 'out');
+    return 'You are logged ' + (this.authService.user.isLoggedIn ? 'in as: ' + this.authService.user.name : 'out');
   }
 
-  logout(){
-    this.authService.logout();
+  login(username: string, password: string){
+    if (username == null || password == null) {
+      this.errorMessage = 'Username or password are not valid.';
+      return;
+    }
+    this.authService.login(username, password)
+      .subscribe(data => {
+        var result = data.json();
+        this.authService.user.hasPassword = true;
+        this.authService.user.email = result.email;
+        this.authService.user.isLoggedIn = true;
+        this.authService.user.name = result.name;
+      }, err => {
+        this.errorMessage = err;
+      });
   }
 
   createPassword() {
@@ -51,7 +53,7 @@ export class ManageAccountComponent{
     this.router.navigate(['/user-center/change-password']);
   }
 
-  forgotPassword(){
+  forgotPassword() {
     this.router.navigate(['/user-center/forgot-password']);
   }
 }

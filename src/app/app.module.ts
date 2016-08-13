@@ -25,7 +25,7 @@ import {Uuid} from './shared/uuid-generator.service';
     routing
   ],
   providers: [
-    appRoutingProviders, AuthService, AuthGuardService, Uuid,
+    appRoutingProviders, Uuid,
     {provide: RequestOptions, useClass: BaseRequestOptionWithCredentials}
   ],
   entryComponents: [AppComponent],

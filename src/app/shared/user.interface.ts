@@ -3,7 +3,8 @@
  */
 
 export interface User{
-  username: string,
+  name: string,
   isLoggedIn: boolean,
-  hasPassword: boolean
+  hasPassword: boolean,
+  email: string
 }

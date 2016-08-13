@@ -1,40 +1,77 @@
-<sm-segement>
-  <sm-message icon="info">
-    <message-content>
-      <p>{{message}}</p>
-    </message-content>
-  </sm-message>
-  <sm-segment *ngIf="authService.user.isLoggedIn">
-    <h2>Manage Account</h2>
-    <div [ngSwitch]="authService.user.hasPassword">
-      <sm-button *ngSwitchCase="false" (click)="createPassword()">Create Password</sm-button>
-      <sm-button *ngSwitchCase="true" (click)="changePassword()">Change Password</sm-button>
+<h2>Manage User Account</h2>
+<sm-message icon="info">
+  <message-content>
+    <p>{{message}}</p>
+  </message-content>
+</sm-message>
+
+<div *ngIf="authService.user.isLoggedIn">
+  <div [ngSwitch]="authService.user.hasPassword">
+    <div *ngSwitchCase="false">
+      <sm-card>
+        <card-title>
+          Create a password for your account.
+        </card-title>
+        <card-subtitle>
+          A account has been created and linked to your GitHub account.
+        </card-subtitle>
+        <card-content>
+          <div>
+            Your login name is {{authService.user.email}}. Your have not created a password for your
+            account
+            yet.
+          </div>
+          <div>
+            <sm-button (click)="createPassword()">Create Password</sm-button>
+          </div>
+        </card-content>
+      </sm-card>
     </div>
-  </sm-segment>
-  <sm-segment *ngIf="!authService.user.isLoggedIn">
-
-
-    <sm-tabs>
-      <sm-tab title="Login with local account" [active]="true">
-        <form class="ui form" [formGroup]="loginForm">
-          <div class="field">
-            <sm-input icon="user" class="left" label="Username" placeholder="Enter username..."
-                      [control]="loginForm.controls.username" name="username"></sm-input>
+    <div *ngSwitchCase="true">
+      <sm-card>
+        <card-content>
+          <h5>
+            Your are logged in as <strong>{{authService.user.name}}</strong>. Your username is <strong>{{authService.user.email}}</strong>.
+          </h5>
+          <div>
           </div>
-          <div class="field">
-            <sm-input icon="protect" class="left" label="Password" placeholder="Enter password" [control]="loginForm.controls.password"
-                      name="password"></sm-input>
+          <div>
+            Click <a class="link" (click)="changePassword()">Change Password</a> to change your password.
           </div>
+        </card-content>
+      </sm-card>
+    </div>
+  </div>
+</div>
 
-          <sm-button (click)="login()">Login</sm-button>
-          <sm-button (click)="forgotPassword()">Forgot Password</sm-button>
-        </form>
-      </sm-tab>
-      <sm-tab title="Login with GitHub">
-        <a class="ui button" href="https://github.com/login/oauth/authorize?client_id=668f3a743f4248e316d2&state={{uuid.csrfToken}}&redirect_uri=http://localhost:4200/user-center/login-github&scope=public_repo%20user:email">GitHub</a>
-      </sm-tab>
-    </sm-tabs>
+<div *ngIf="!authService.user.isLoggedIn">
+  <sm-tabs>
+    <sm-tab title="Login with local account" [active]="true">
+      <sm-message icon="warning" class="warning" *ngIf="errorMessage">
+        <message-header>Error</message-header>
+        <message-content>{{errorMessage}}</message-content>
+      </sm-message>
+      <form class="ui form" [formGroup]="loginForm">
+        <div class="field">
+          <sm-input icon="user" class="left" label="Username" placeholder="Enter username..."
+                    [control]="loginForm.controls.username" name="username"></sm-input>
+        </div>
+        <div class="field">
+          <sm-input type="password" icon="protect" class="left" label="Password" placeholder="Enter password"
+                    [control]="loginForm.controls.password"
+                    name="password"></sm-input>
+        </div>
+
+        <sm-button (click)="login(loginForm.controls.username.value, loginForm.controls.password.value)">Login</sm-button>
+        <sm-button (click)="forgotPassword()">Forgot Password</sm-button>
+      </form>
+    </sm-tab>
+    <sm-tab title="Login with GitHub">
+      <a class="ui button"
+         href="https://github.com/login/oauth/authorize?client_id=668f3a743f4248e316d2&state={{uuid.csrfToken}}&redirect_uri=http://localhost:4200/user-center/login-github&scope=public_repo%20user:email">GitHub</a>
+    </sm-tab>
+  </sm-tabs>
 
 
-  </sm-segment>
-</sm-segement>
+</div>
+
