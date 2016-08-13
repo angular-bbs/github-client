@@ -11,9 +11,10 @@ import {Subscription} from "rxjs";
   selector: 'user-center',
   templateUrl: 'user-center.component.html'
 })
-export class UserCenterComponent implements OnDestroy{
+export class UserCenterComponent implements OnDestroy {
   private sub: Subscription;
   private sub1: Subscription;
+
   constructor(private authService: AuthService, private uuid: Uuid) {
     this.sub = authService.checkStatus()
       .subscribe(d => {
@@ -27,7 +28,7 @@ export class UserCenterComponent implements OnDestroy{
       });
   }
 
-  logout(){
+  logout() {
     this.sub1 = this.authService.logout()
       .subscribe(d => {
         this.authService.user.isLoggedIn = false;
@@ -40,7 +41,12 @@ export class UserCenterComponent implements OnDestroy{
   }
 
   ngOnDestroy(): any {
-    this.sub.unsubscribe();
-    this.sub1.unsubscribe();
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
+    if (this.sub1) {
+      this.sub1.unsubscribe();
+    }
+
   }
 }

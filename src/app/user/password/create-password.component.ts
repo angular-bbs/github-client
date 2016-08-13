@@ -38,6 +38,9 @@ export class CreatePasswordComponent implements OnDestroy{
   }
 
   ngOnDestroy(): any {
-    this.sub.unsubscribe();
+    if(this.sub){
+      this.sub.unsubscribe();
+    }
+
   }
 }

@@ -1,3 +1,17 @@
 <ng-segment>
-  <i class="spinner loading icon"></i>Logging...
+  <div *ngIf="!errorMessage && !isSuccess">
+    <i class="spinner loading icon"></i>Logging...
+  </div>
+  <div *ngIf="errorMessage">
+    <sm-message class="warning" icon="warning">
+      <message-header>Error</message-header>
+      <message-content>{{errorMessage}}</message-content>
+    </sm-message>
+  </div>
+  <div *ngIf="isSuccess">
+    <h4>Welcome {{auth.user.name}}, your are logged in with your Github account.</h4>
+    <div>
+      <a routerLink="/user-center">Back to User Center</a>
+    </div>
+  </div>
 </ng-segment>

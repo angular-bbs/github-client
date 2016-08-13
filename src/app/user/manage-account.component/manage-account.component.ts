@@ -62,6 +62,9 @@ export class ManageAccountComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    if(this.sub){
+      this.sub.unsubscribe();
+    }
+
   }
 }
