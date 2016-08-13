@@ -4,13 +4,14 @@ import { Subscription } from "rxjs/Rx";
 import { Http } from "@angular/http";
 import {AuthService} from '../../shared/auth.service';
 import {api} from "../shared/api.const";
+import {Uuid} from "../../shared/uuid-generator.service";
 
 @Component({
   selector: 'user-home',
   templateUrl: 'login-github.component.html'
 })
 export class LoginGithubComponent implements OnInit, OnDestroy {
-  constructor(private route: ActivatedRoute, private auth: AuthService, private http: Http, private router: Router) {
+  constructor(private route: ActivatedRoute, private auth: AuthService, private router: Router, private uuid: Uuid) {
   }
 
   name: string;
@@ -22,9 +23,9 @@ export class LoginGithubComponent implements OnInit, OnDestroy {
       const state = params.state;
       const code = params.code;
       if (!state && !code) {
-        return this.router.navigateByUrl('/bbs');
+        return this.router.navigateByUrl('/user-center');
       }
-      if (decodeURIComponent(state) !== this.auth.csrfToken) {
+      if (decodeURIComponent(state) !== this.uuid.csrfToken) {
         alert('State code not matching!');
       } else {
         this.auth.loginWithGithub(state, code);

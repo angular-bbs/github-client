@@ -4,6 +4,24 @@ import {Injectable} from '@angular/core';
  */
 @Injectable()
 export class Uuid{
+  constructor(){
+    if (!this.csrfToken) {
+      this.nextCsrfToken();
+    }
+  }
+  get csrfToken(): string {
+    var uuid = sessionStorage.getItem('csrfToken');
+    return uuid;
+  }
+
+  set csrfToken(value: string) {
+    sessionStorage.setItem('csrfToken', value);
+  }
+
+  nextCsrfToken(): void {
+    this.csrfToken = this.newUuid();
+  }
+
   newUuid(){
     if (typeof (window.crypto) !== "undefined" && typeof (window.crypto.getRandomValues) !== "undefined") {
       // If we have a cryptographically secure PRNG, use that

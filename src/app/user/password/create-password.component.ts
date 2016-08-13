@@ -4,7 +4,7 @@
 
 import {Component} from "@angular/core";
 import {AuthService} from "../../shared/auth.service";
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 @Component({
   selector: 'create-password',
   templateUrl:'create-password.component.html'
@@ -16,8 +16,8 @@ export class CreatePasswordComponent{
   }
 
   createPasswordForm = new FormGroup({
-    password: new FormControl(),
-    confirmPassword: new FormControl()
+    password: new FormControl('', Validators.required),
+    confirmPassword: new FormControl('', Validators.required)
   });
 
 

@@ -9,5 +9,6 @@ export const api = {
   loginGithubEndpoint: accountEndpoint + '/login-github',
   tokenEndpoint: accountEndpoint + '/token',
   checkStatusEndpoint: accountEndpoint + '/check-status',
-  logoutEndpoint: accountEndpoint + '/logout'
+  logoutEndpoint: accountEndpoint + '/logout',
+  createPasswordEndpoint: accountEndpoint + '/create-password'
 };

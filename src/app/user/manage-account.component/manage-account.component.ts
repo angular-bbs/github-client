@@ -6,6 +6,7 @@ import {Component} from "@angular/core";
 import {AuthService} from "../../shared/auth.service";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
+import {Uuid} from "../../shared/uuid-generator.service";
 @Component({
   selector: 'manage-account',
   templateUrl: 'manage-account.component.html'
@@ -16,7 +17,7 @@ export class ManageAccountComponent{
   username: string;
   password: string;
 
-  constructor(public authService: AuthService, private router: Router){
+  constructor(public authService: AuthService, private router: Router, private uuid: Uuid){
 
   }
 
@@ -35,7 +36,7 @@ export class ManageAccountComponent{
   }
 
   get message() {
-    return 'You are logged ' + (this.authService.isLoggedIn ? 'in' : 'out');
+    return 'You are logged ' + (this.authService.user.isLoggedIn ? 'in as: ' + this.authService.user.username : 'out');
   }
 
   logout(){

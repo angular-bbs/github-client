@@ -34,7 +34,7 @@ import {ChangePasswordComponent} from "./password/change-password.component";
     SEMANTIC_COMPONENTS, SEMANTIC_DIRECTIVES
   ],
   providers:[
-    AuthService
+
   ]
 
 })
