@@ -8,7 +8,7 @@
       <a sm-item *ngIf="!auth.user.isLoggedIn" href="https://github.com/login/oauth/authorize?client_id=668f3a743f4248e316d2&state={{uuid.csrfToken}}&redirect_uri=http://localhost:4200/user-center/login-github&scope=public_repo%20user:email">Login with Github</a>
     </sm-menu>
   </sm-menu>
-  <h2>User Center</h2>
+  <h1>User Center</h1>
   <sm-segment class="colored teal">
     <router-outlet></router-outlet>
   </sm-segment>

@@ -1,5 +1,5 @@
 <sm-segment class="basic">
-  <h2>Manage User Account</h2>
+  <h3>Manage User Account</h3>
   <sm-message icon="info">
     <message-content>
       <p>{{message}}</p>
@@ -9,30 +9,28 @@
   <div *ngIf="auth.user.isLoggedIn">
     <div [ngSwitch]="auth.user.hasPassword">
       <div *ngSwitchCase="false">
-        <sm-card>
-          <card-title>
-            Create a password for your account.
-          </card-title>
-          <card-subtitle>
-            A account has been created and linked to your GitHub account.
-          </card-subtitle>
-          <card-content>
+        <sm-segment class="basic">
+          <h3 class="ui header">Create a password for your account.</h3>
+          <strong>A account has been created and linked to your GitHub account.</strong>
+          <sm-segment class="basic">
             <div>
               Your login name is {{auth.user.email}}. Your have not created a password for your
               account
               yet.
             </div>
+            <br/>
             <div>
-              <sm-button (click)="createPassword()">Create Password</sm-button>
+              <a class="ui button primary" (click)="createPassword()">Create Password</a>
             </div>
-          </card-content>
-        </sm-card>
+          </sm-segment>
+        </sm-segment>
       </div>
       <div *ngSwitchCase="true">
         <sm-card>
           <card-content>
             <h5>
-              Your are logged in as <strong>{{auth.user.name}}</strong>. Your username is <strong>{{auth.user.email}}</strong>.
+              Your are logged in as <strong>{{auth.user.name}}</strong>. Your username is
+              <strong>{{auth.user.email}}</strong>.
             </h5>
             <div>
             </div>
@@ -58,11 +56,12 @@
           <div class="field">
             <sm-input type="password" icon="protect" class="left" label="Password *" placeholder="Enter password"
                       [control]="loginForm.controls.password"
-                      ></sm-input>
+            ></sm-input>
             <validation-messages [control]="loginForm.controls.password"></validation-messages>
           </div>
 
-          <sm-button class="primary" [disabled]="!loginForm.valid" (click)="login(loginForm.controls.username.value, loginForm.controls.password.value)">Login
+          <sm-button class="primary" [disabled]="!loginForm.valid"
+                     (click)="login(loginForm.controls.username.value, loginForm.controls.password.value)">Login
           </sm-button>
           <a class="ui button" (click)="forgotPassword()">Forgot Password</a>
         </form>
