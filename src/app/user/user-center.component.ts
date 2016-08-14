@@ -15,26 +15,26 @@ export class UserCenterComponent implements OnDestroy {
   private sub: Subscription;
   private sub1: Subscription;
 
-  constructor(private authService: AuthService, private uuid: Uuid) {
-    this.sub = authService.checkStatus()
+  constructor(private auth: AuthService, private uuid: Uuid) {
+    this.sub = auth.checkStatus()
       .subscribe(d => {
-        this.authService.user.isLoggedIn = true;
+        this.auth.user.isLoggedIn = true;
         var result = d.json();
-        this.authService.user.name = result.name;
-        this.authService.user.hasPassword = result.hasPassword;
-        this.authService.user.email = result.email;
+        this.auth.user.name = result.name;
+        this.auth.user.hasPassword = result.hasPassword;
+        this.auth.user.email = result.email;
       }, (err) => {
         console.log(err);
       });
   }
 
   logout() {
-    this.sub1 = this.authService.logout()
+    this.sub1 = this.auth.logout()
       .subscribe(d => {
-        this.authService.user.isLoggedIn = false;
-        this.authService.user.name = '';
-        this.authService.user.hasPassword = false;
-        this.authService.user.email = '';
+        this.auth.user.isLoggedIn = false;
+        this.auth.user.name = '';
+        this.auth.user.hasPassword = false;
+        this.auth.user.email = '';
       }, (err) => {
         console.log(err);
       });

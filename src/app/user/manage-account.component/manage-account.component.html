@@ -6,8 +6,8 @@
     </message-content>
   </sm-message>
 
-  <div *ngIf="authService.user.isLoggedIn">
-    <div [ngSwitch]="authService.user.hasPassword">
+  <div *ngIf="auth.user.isLoggedIn">
+    <div [ngSwitch]="auth.user.hasPassword">
       <div *ngSwitchCase="false">
         <sm-card>
           <card-title>
@@ -18,7 +18,7 @@
           </card-subtitle>
           <card-content>
             <div>
-              Your login name is {{authService.user.email}}. Your have not created a password for your
+              Your login name is {{auth.user.email}}. Your have not created a password for your
               account
               yet.
             </div>
@@ -32,7 +32,7 @@
         <sm-card>
           <card-content>
             <h5>
-              Your are logged in as <strong>{{authService.user.name}}</strong>. Your username is <strong>{{authService.user.email}}</strong>.
+              Your are logged in as <strong>{{auth.user.name}}</strong>. Your username is <strong>{{auth.user.email}}</strong>.
             </h5>
             <div>
             </div>
@@ -45,13 +45,10 @@
     </div>
   </div>
 
-  <div *ngIf="!authService.user.isLoggedIn">
+  <div *ngIf="!auth.user.isLoggedIn">
     <sm-tabs>
       <sm-tab title="Login with local account" [active]="true">
-        <sm-message icon="warning" class="warning" *ngIf="errorMessage">
-          <message-header>Error</message-header>
-          <message-content>{{errorMessage}}</message-content>
-        </sm-message>
+        <error-message [errorMessage]="errorMessage"></error-message>
         <form class="ui form" [formGroup]="loginForm">
           <div class="field">
             <sm-input icon="user" class="left" label="Username" placeholder="Enter username..."

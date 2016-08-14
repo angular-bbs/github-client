@@ -42,7 +42,7 @@ export class ChangePasswordComponent implements OnDestroy, OnInit{
       return;
     }
     if (newPassword !== confirmPassword) {
-      this.errorMessage = 'confirm password does not match with new password';
+      this.errorMessage = 'Confirm password does not match with new password';
       return;
     }
     this.sub = this.auth.changePassword(currentPassword, newPassword, confirmPassword)

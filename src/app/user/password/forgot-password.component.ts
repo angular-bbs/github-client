@@ -16,7 +16,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy{
   constructor(private auth: AuthService) {
 
   }
-
+  isSuccess: boolean = false;
   errorMessage: string;
   emailControl: FormControl;
   private sub: Subscription;
@@ -33,6 +33,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy{
     this.sub = this.auth.forgotPassword(this.emailControl.value)
       .subscribe((data:{_body: string})=> {
         this.url = data._body;
+        this.isSuccess = true;
       }, err => {
         this.errorMessage = err;
       });

@@ -24,7 +24,7 @@ export class ManageAccountComponent implements OnDestroy, OnInit{
 
   private sub: Subscription;
 
-  constructor(public authService: AuthService, private router: Router, private formBuilder: FormBuilder, public uuid: Uuid) {
+  constructor(public auth: AuthService, private router: Router, private formBuilder: FormBuilder, public uuid: Uuid) {
 
   }
 
@@ -33,7 +33,7 @@ export class ManageAccountComponent implements OnDestroy, OnInit{
   errorMessage: string;
 
   get message() {
-    return 'You are logged ' + (this.authService.user.isLoggedIn ? 'in as: ' + this.authService.user.name : 'out');
+    return 'You are logged ' + (this.auth.user.isLoggedIn ? 'in as: ' + this.auth.user.name : 'out');
   }
 
   login(username: string, password: string) {
@@ -41,13 +41,13 @@ export class ManageAccountComponent implements OnDestroy, OnInit{
       this.errorMessage = 'Username or password are not valid.';
       return;
     }
-    this.sub = this.authService.login(username, password)
+    this.sub = this.auth.login(username, password)
       .subscribe(data => {
         var result = data.json();
-        this.authService.user.hasPassword = true;
-        this.authService.user.email = result.email;
-        this.authService.user.isLoggedIn = true;
-        this.authService.user.name = result.name;
+        this.auth.user.hasPassword = true;
+        this.auth.user.email = result.email;
+        this.auth.user.isLoggedIn = true;
+        this.auth.user.name = result.name;
       }, err => {
         this.errorMessage = err;
       });
