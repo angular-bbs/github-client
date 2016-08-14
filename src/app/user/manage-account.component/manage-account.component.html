@@ -51,13 +51,15 @@
         <error-message [errorMessage]="errorMessage"></error-message>
         <form class="ui form" [formGroup]="loginForm">
           <div class="field">
-            <sm-input icon="user" class="left" label="Username" placeholder="Enter username..."
+            <sm-input icon="user" class="left" label="Username *" placeholder="Enter username..."
                       [control]="loginForm.controls.username"></sm-input>
+            <validation-messages [control]="loginForm.controls.username"></validation-messages>
           </div>
           <div class="field">
-            <sm-input type="password" icon="protect" class="left" label="Password" placeholder="Enter password"
+            <sm-input type="password" icon="protect" class="left" label="Password *" placeholder="Enter password"
                       [control]="loginForm.controls.password"
                       ></sm-input>
+            <validation-messages [control]="loginForm.controls.password"></validation-messages>
           </div>
 
           <sm-button class="primary" [disabled]="!loginForm.valid" (click)="login(loginForm.controls.username.value, loginForm.controls.password.value)">Login

@@ -16,6 +16,7 @@ import {ResetPasswordComponent} from "./password/reset-password.component";
 import {ChangePasswordComponent} from "./password/change-password.component";
 import {ErrorMessageComponent} from "./shared/error-message.component";
 import {ConfirmationComponent} from "./shared/confirmation.component";
+import {ValidationMessages} from "./shared/validation-messages.component";
 
 @NgModule({
   imports:[
@@ -34,6 +35,7 @@ import {ConfirmationComponent} from "./shared/confirmation.component";
     ChangePasswordComponent,
     ErrorMessageComponent,
     ConfirmationComponent,
+    ValidationMessages,
     SEMANTIC_COMPONENTS, SEMANTIC_DIRECTIVES
   ],
   providers:[

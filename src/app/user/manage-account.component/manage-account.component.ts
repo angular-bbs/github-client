@@ -8,6 +8,7 @@ import {FormControl, FormGroup, Validators, FormBuilder} from "@angular/forms";
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {Uuid} from "../../shared/uuid-generator.service";
+import {ValidationService} from "../shared/validation.service";
 @Component({
   selector: 'manage-account',
   templateUrl: 'manage-account.component.html'
@@ -17,7 +18,7 @@ export class ManageAccountComponent implements OnDestroy, OnInit{
 
   ngOnInit(): any {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      username: ['', [Validators.required, ValidationService.emailValidator]],
       password: ['', Validators.required]
     });
   }

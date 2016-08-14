@@ -7,6 +7,7 @@ import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import {AuthService} from "../../shared/auth.service";
 import {CustomValidators} from "../../shared/validate-email.directive";
 import {Subscription} from "rxjs";
+import {ValidationService} from "../shared/validation.service";
 @Component({
   selector: 'forgot-password',
   templateUrl: 'forgot-password.component.html'
@@ -22,7 +23,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy{
   private sub: Subscription;
   url: string;
   ngOnInit() {
-    this.emailControl = new FormControl('', Validators.required);
+    this.emailControl = new FormControl('', [Validators.required, ValidationService.emailValidator]);
   }
 
   submit() {
