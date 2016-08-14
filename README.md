@@ -6,6 +6,8 @@ This is a test client for using [Webapi-starter](https://github.com/angular-bbs/
 1. Interface is made with: [ng-semantic](https://github.com/vladotesanovic/ngSemantic) and [semantic-ui](http://semantic-ui.com/)
 1. It has one key module: userModule, its sole purpose is to communicate and utilize the apis provided by [Webapi-starter](https://github.com/angular-bbs/webapi-starter).
 
+Note: Replace the ClientId in the url for `Login with Github` with your own ClientId.
+
 # Angular Cli Instructions
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.11-webpack.
