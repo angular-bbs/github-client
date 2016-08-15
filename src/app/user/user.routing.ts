@@ -35,7 +35,3 @@ export const userRoutes: Routes = [
 
 export const userRouting = RouterModule.forChild(userRoutes);
 
-export const authProviders = [
-  AuthGuardService,
-  AuthService
-];

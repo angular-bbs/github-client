@@ -7,8 +7,8 @@ import {AuthService} from "../../shared/auth.service";
 import {FormControl, FormGroup, Validators, FormBuilder} from "@angular/forms";
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
-import {Uuid} from "../../shared/uuid-generator.service";
-import {ValidationService} from "../shared/validation.service";
+import {Uuid} from "../shared/uuid.service";
+import {ValidationService} from "../../shared/validation.service";
 @Component({
   selector: 'manage-account',
   templateUrl: 'manage-account.component.html'

@@ -4,12 +4,13 @@
 
 import {Component, OnDestroy} from '@angular/core';
 import {AuthService} from '../shared/auth.service';
-import {Uuid} from "../shared/uuid-generator.service";
+import {Uuid} from "./shared/uuid.service";
 import {Subscription} from "rxjs";
 
 @Component({
   selector: 'user-center',
-  templateUrl: 'user-center.component.html'
+  templateUrl: 'user-center.component.html',
+  providers: [Uuid]
 })
 export class UserCenterComponent implements OnDestroy {
   private sub: Subscription;

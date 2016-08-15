@@ -2,12 +2,10 @@
  * Created by yezm on 11/08/2016.
  */
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common/esm';
 import {ReactiveFormsModule} from '@angular/forms';
 import {LoginGithubComponent} from './login-github.component/login-github.component';
 import {userRouting} from './user.routing';
 import {UserCenterComponent} from './user-center.component';
-import {HttpModule} from '@angular/http/esm';
 import { SEMANTIC_COMPONENTS, SEMANTIC_DIRECTIVES } from "ng-semantic";
 import {ManageAccountComponent} from "./manage-account.component/manage-account.component";
 import {CreatePasswordComponent} from "./password/create-password.component";
@@ -16,14 +14,13 @@ import {ResetPasswordComponent} from "./password/reset-password.component";
 import {ChangePasswordComponent} from "./password/change-password.component";
 import {ErrorMessageComponent} from "./shared/error-message.component";
 import {ConfirmationComponent} from "./shared/confirmation.component";
-import {ValidationMessages} from "./shared/validation-messages.component";
+import {SharedModule} from '../shared/sharedModule';
 
 @NgModule({
   imports:[
-    CommonModule,
     ReactiveFormsModule,
     userRouting,
-    HttpModule
+    SharedModule
   ],
   declarations:[
     LoginGithubComponent,
@@ -35,8 +32,8 @@ import {ValidationMessages} from "./shared/validation-messages.component";
     ChangePasswordComponent,
     ErrorMessageComponent,
     ConfirmationComponent,
-    ValidationMessages,
-    SEMANTIC_COMPONENTS, SEMANTIC_DIRECTIVES
+    SEMANTIC_COMPONENTS,
+    SEMANTIC_DIRECTIVES,
   ],
   providers:[
 

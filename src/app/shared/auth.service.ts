@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 import {Http} from '@angular/http';
-import {Uuid} from './uuid-generator.service';
+import {Uuid} from '../user/shared/uuid.service';
 import {api} from '../user/shared/api.const';
 import {Router} from "@angular/router";
 import {User} from "./user.interface";

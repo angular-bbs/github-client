@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import {Router, ActivatedRoute} from "@angular/router";
 import { Subscription } from "rxjs/Rx";
 import {AuthService} from '../../shared/auth.service';
-import {Uuid} from "../../shared/uuid-generator.service";
+import {Uuid} from "../shared/uuid.service";
 
 @Component({
   selector: 'user-home',
