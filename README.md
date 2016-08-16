@@ -5,7 +5,7 @@ This is a test client for using [Webapi-starter](https://github.com/angular-bbs/
 1. Angular version: Angular 2 RC5
 1. Interface is made with: [ng-semantic](https://github.com/vladotesanovic/ngSemantic) and [semantic-ui](http://semantic-ui.com/).
    Note: ng-semantic did not support RC5's NgModule at the time, so it is temperarily declared in UserModule.
-1. It has one key module: userModule, its sole purpose is to communicate and utilize the apis provided by [Webapi-starter](https://github.com/angular-bbs/webapi-starter).
+1. It has one key module: UserModule, its sole purpose is to communicate and utilize the apis provided by [Webapi-starter](https://github.com/angular-bbs/webapi-starter).
 
 Note: Replace the ClientId in the url for `Login with Github` with your own ClientId.
 
