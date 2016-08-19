@@ -10,14 +10,17 @@ import {BaseRequestOptionWithCredentials} from './base-request-options-withcrede
 import {AuthGuardService} from './auth-guard.service';
 import {ValidationMessages} from './validation-messages.component';
 import {ValidationService} from './validation.service';
-import {SEMANTIC_COMPONENTS, SemanticCardComponent, SemanticTabComponent, SemanticInputComponent} from 'ng-semantic';
+import {
+  SEMANTIC_COMPONENTS, SemanticCardComponent, SemanticTabComponent, SemanticInputComponent,
+  NgSemanticModule
+} from 'ng-semantic';
 
 @NgModule({
   imports: [
     CommonModule,
     HttpModule,
     JsonpModule,
-
+    NgSemanticModule
   ],
   declarations: [
     ValidationMessages
@@ -26,7 +29,8 @@ import {SEMANTIC_COMPONENTS, SemanticCardComponent, SemanticTabComponent, Semant
     CommonModule,
     HttpModule,
     JsonpModule,
-    ValidationMessages
+    ValidationMessages,
+    NgSemanticModule
   ]
 })
 

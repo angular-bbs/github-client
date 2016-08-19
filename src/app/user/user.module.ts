@@ -6,7 +6,6 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {LoginGithubComponent} from './login-github.component/login-github.component';
 import {userRouting} from './user.routing';
 import {UserCenterComponent} from './user-center.component';
-import { SEMANTIC_COMPONENTS, SEMANTIC_DIRECTIVES } from "ng-semantic";
 import {ManageAccountComponent} from "./manage-account.component/manage-account.component";
 import {CreatePasswordComponent} from "./password/create-password.component";
 import {ForgotPasswordComponent} from "./password/forgot-password.component";
@@ -31,9 +30,7 @@ import {SharedModule} from '../shared/sharedModule';
     ResetPasswordComponent,
     ChangePasswordComponent,
     ErrorMessageComponent,
-    ConfirmationComponent,
-    SEMANTIC_COMPONENTS,
-    SEMANTIC_DIRECTIVES,
+    ConfirmationComponent
   ],
   providers:[
 
